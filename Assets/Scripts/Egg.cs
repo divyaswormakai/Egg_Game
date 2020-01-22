@@ -1,19 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Egg : MonoBehaviour
 {
-    private bool isMovingRight;
     private bool isInAir = false;
+    private GameObject currPlatform;
 
-    public float moveSpeed =1f;
-
-    GameObject currPlatform;
+    public float force = 9.5f;
+    
     // Start is called before the first frame update
     void Start()
     {
-        UpdateSpeed();
+        
     }
 
     // Update is called once per frame
@@ -21,43 +21,22 @@ public class Egg : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isInAir)
         {
-            print("Go up");
-            GetComponent<Rigidbody2D>().AddForce(transform.up*8f,ForceMode2D.Impulse);
+            GetComponent<Rigidbody2D>().AddForce(transform.up*force,ForceMode2D.Impulse);
             isInAir = true;
         }
-        MoveEgg(isMovingRight, moveSpeed);
-    }
-
-    public void MoveEgg(bool isMovingRight,float moveSpeed)
-    {
-        Vector2 pos = transform.position;
-        if (isMovingRight)
-        {
-            pos.x += moveSpeed*Time.deltaTime;
-        }
-        else
-        {
-            pos.x -= moveSpeed*Time.deltaTime;
-        }
-        transform.position = pos;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        print(collision.collider.name);
-        currPlatform = collision.collider.gameObject;
-        ChangeStats();
-        isInAir = false;
+        if(GetComponent<Rigidbody2D>().velocity.y <= 0f){                                               //If fallingthen only check
+            if (currPlatform != null && currPlatform.name != collision.collider.name)                   //If it falls on another platform then check
+            {
+                FindObjectOfType<PlatformSpawner>().PlacePlatform(Int32.Parse(currPlatform.name));
+            }
+            currPlatform = collision.collider.gameObject;
+            isInAir = false;
+            transform.parent = collision.transform;
+        }
     }
 
-    public void ChangeStats()
-    {
-        isMovingRight = currPlatform.GetComponentInChildren<Platform>().isMovingRight;
-        print("Is moving right: " + isMovingRight);
-    }
-
-    public void UpdateSpeed()
-    {
-        moveSpeed = FindObjectOfType<GameManager>().GetSpeed();
-    }
 }

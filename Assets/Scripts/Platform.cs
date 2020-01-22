@@ -6,21 +6,25 @@ public class Platform : MonoBehaviour
 {
     private int width;
 
+    public bool toMove;
     public float moveSpeed;
     public bool isMovingRight;
+    
 
     void Start()
     {
         width = Screen.width;
-        isMovingRight = Random.Range(0f, 1f) > 0.5 ? true : false;
-
+        SetStats();
         UpdateSpeed();
     }
 
     // Update is called once per frame
     void Update()
     {
-        MovePlatform();
+        if (toMove)
+        {
+            MovePlatform();
+        }
     }
 
     public void MovePlatform()
@@ -28,10 +32,9 @@ public class Platform : MonoBehaviour
         Vector2 platformPos = transform.position;
         Vector3 posOnScreen = Camera.main.WorldToScreenPoint(platformPos);          //Give position in pixels wrt screen
 
-        if (posOnScreen.x > width-100f || posOnScreen.x < 100f)
+        if (posOnScreen.x >= width-100f || posOnScreen.x <= 100f)
         {
             isMovingRight = !isMovingRight;
-            FindObjectOfType<Egg>().ChangeStats();
         }
 
         if (isMovingRight)
@@ -43,6 +46,12 @@ public class Platform : MonoBehaviour
             platformPos.x -= moveSpeed * Time.deltaTime;
         }
         transform.position = platformPos;
+    }
+    
+    public void SetStats()
+    {
+        isMovingRight = Random.Range(0f, 1f) > 0.5 ? true : false;
+        toMove = Random.Range(0f, 1f) < 0.5 ? true : false;
     }
 
     public void UpdateSpeed()

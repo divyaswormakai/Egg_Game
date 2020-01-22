@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private float moveSpeed = 0.5f;
+    private float moveSpeed = 2f;
+    private int score = 0;
 
     private void Start()
     {
@@ -17,8 +18,16 @@ public class GameManager : MonoBehaviour
 
     public float GetSpeed()
     {
-
         return moveSpeed;
     }
 
+    public float GetScore()
+    {
+        return score;
+    }
+
+    public void IncScore(int incAmt)
+    {
+        score += incAmt;
+    }
 }
