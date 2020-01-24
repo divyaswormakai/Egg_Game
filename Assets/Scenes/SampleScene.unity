@@ -618,7 +618,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -681,8 +681,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1320769458}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 28.785625, z: 0}
-  m_LocalScale: {x: 0.9726948, y: 2.7935684, z: 1}
+  m_LocalPosition: {x: 0, y: 7.0666656, z: 0}
+  m_LocalScale: {x: 0.31373656, y: 0.6858011, z: 1}
   m_Children: []
   m_Father: {fileID: 80572151}
   m_RootOrder: 0
@@ -725,7 +725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4fa58558d9ff3e4bbc9ec19819bb820, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 9.8
+  force: 14
 --- !u!1 &1365173501
 GameObject:
   m_ObjectHideFlags: 3
@@ -921,12 +921,17 @@ PrefabInstance:
     - target: {fileID: 3684109528437873581, guid: 44ae50e2968587d469705a148a38002a,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 539077691283350885, guid: 44ae50e2968587d469705a148a38002a,
         type: 3}
       propertyPath: m_IsTrigger
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 539077691283350885, guid: 44ae50e2968587d469705a148a38002a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44ae50e2968587d469705a148a38002a, type: 3}

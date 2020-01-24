@@ -31,7 +31,7 @@ public class Egg : MonoBehaviour
         if(GetComponent<Rigidbody2D>().velocity.y <= 0f){                                               //If fallingthen only check
             if (currPlatform != null && currPlatform.name != collision.collider.name)                   //If it falls on another platform then check
             {
-                FindObjectOfType<PlatformSpawner>().PlacePlatform(Int32.Parse(currPlatform.name));
+                FindObjectOfType<PlatformSpawner>().PlacePlatform(Int32.Parse(collision.collider.name));
             }
             currPlatform = collision.collider.gameObject;
             isInAir = false;
