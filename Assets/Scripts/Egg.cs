@@ -32,6 +32,8 @@ public class Egg : MonoBehaviour
             if (currPlatform != null && currPlatform.name != collision.collider.name)                   //If it falls on another platform then check
             {
                 FindObjectOfType<PlatformSpawner>().PlacePlatform(Int32.Parse(collision.collider.name));
+                FindObjectOfType<GameManager>().IncScore(1);
+                FindObjectOfType<UI>().SetScore();
             }
             currPlatform = collision.collider.gameObject;
             isInAir = false;
