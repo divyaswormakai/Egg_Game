@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         return moveSpeed;
     }
 
-    public float GetScore()
+    public int GetScore()
     {
         return score;
     }

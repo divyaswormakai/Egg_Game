@@ -23,6 +23,7 @@ public class Egg : MonoBehaviour
         {
             GetComponent<Rigidbody2D>().AddForce(transform.up*force,ForceMode2D.Impulse);
             isInAir = true;
+            GetComponent<AudioSource>().Play();
         }
     }
 

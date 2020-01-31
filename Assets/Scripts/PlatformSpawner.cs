@@ -17,7 +17,7 @@ public class PlatformSpawner : MonoBehaviour
         platforms[toPlacePlatformIndex].GetComponentInChildren<Platform>().SetStats();
          
         CheckAlternateMovement(currPlat);
-        print("curr:" + currPlat);
+
         //Reposition the camera
         Vector3 objPos = cameraFollowObject.transform.position;
         objPos.y += 4.5f;
