@@ -51,7 +51,7 @@ public class Platform : MonoBehaviour
     public void SetStats()
     {
         isMovingRight = Random.Range(0f, 1f) > 0.5 ? true : false;
-        toMove = Random.Range(0f, 1f) < 0.5 ? true : false;
+        toMove = Random.Range(0f, 1f) < FindObjectOfType<GameManager>().GetCompareLimit() ? true : false;
     }
 
     public void UpdateSpeed()

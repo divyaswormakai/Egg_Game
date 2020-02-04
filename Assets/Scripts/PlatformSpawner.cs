@@ -9,28 +9,41 @@ public class PlatformSpawner : MonoBehaviour
 
     public void PlacePlatform(int currPlat)
     {
+        //Move platform
+        MovePlatform(currPlat);
+
+        //Relocate the lowest platform
         int toPlacePlatformIndex = (currPlat + 2) % 5;
         Vector3 toPlacePosition = platforms[currPlat].transform.position;
         toPlacePosition.y += 9;
         toPlacePosition.x = Random.Range(0f, 1.7f);
         platforms[toPlacePlatformIndex].transform.position = toPlacePosition;
         platforms[toPlacePlatformIndex].GetComponentInChildren<Platform>().SetStats();
-         
-        CheckAlternateMovement(currPlat);
 
         //Reposition the camera
         Vector3 objPos = cameraFollowObject.transform.position;
         objPos.y += 4.5f;
         cameraFollowObject.transform.position = objPos;
+
+        //If concurrent platform moving in same direction then stop next platform
+        if(platforms[currPlat].GetComponentInChildren<Platform>().toMove && platforms[(currPlat + 1) % 5].GetComponentInChildren<Platform>().toMove)
+        {
+            if (platforms[currPlat].GetComponentInChildren<Platform>().isMovingRight == platforms[(currPlat + 1) % 5].GetComponentInChildren<Platform>().isMovingRight)
+            {
+                print("Same movement direction");
+                platforms[(currPlat + 1) % 5].GetComponentInChildren<Platform>().toMove = false;
+            }
+        }
     }
 
-    private void CheckAlternateMovement(int currPlat)
+    //After egg jumps on platform move the platform
+    private void MovePlatform(int currPlat)
     {
-        if (!platforms[currPlat].GetComponentInChildren<Platform>().toMove)
+        if (!platforms[(currPlat + 1) % 5].GetComponentInChildren<Platform>().toMove)
         {
-            int nextPlat = (currPlat + 1) % 5;
-            platforms[nextPlat].GetComponentInChildren<Platform>().toMove = true;
+            platforms[currPlat].GetComponentInChildren<Platform>().toMove = true;
         }
+
     }
 
 }
