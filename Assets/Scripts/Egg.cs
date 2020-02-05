@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class Egg : MonoBehaviour
 {
@@ -35,20 +36,26 @@ public class Egg : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(GetComponent<Rigidbody2D>().velocity.y <= 0f){                                               //If fallingthen only check
-            if (currPlatform != null && currPlatform.name != collision.collider.name)                   //If it falls on another platform then check
-            {
-                FindObjectOfType<PlatformSpawner>().PlacePlatform(Int32.Parse(collision.collider.name));        //Spawn Platform to up
-                FindObjectOfType<GameManager>().IncScore(1);                                                    //Increase score
-                FindObjectOfType<UI>().SetScore();                                                              //Set score on UI ScoreBoard
-            }
-            currPlatform = collision.collider.gameObject;
-            isInAir = false;
-            transform.parent = collision.transform;             //set position of egg wrt to the current platform
-
-            if(collision.collider.name == "Border")
-            {
-                print("Die");
+        //Check if collision hit the lower border
+        print(collision.collider.name);
+        if (collision.collider.name == "Border")
+        {
+            print("Die");
+            FindObjectOfType<UI>().GameOverScreen();
+        }
+        else
+        {
+            if (GetComponent<Rigidbody2D>().velocity.y <= 0f)
+            {                                               //If fallingthen only check
+                if (currPlatform != null && currPlatform.name != collision.collider.name)                   //If it falls on another platform then check
+                {
+                    FindObjectOfType<PlatformController>().PlacePlatform(Int32.Parse(collision.collider.name));        //Spawn Platform to up
+                    FindObjectOfType<GameManager>().IncScore(1);                                                    //Increase score
+                    FindObjectOfType<UI>().SetScore();                                                              //Set score on UI ScoreBoard
+                }
+                currPlatform = collision.collider.gameObject;
+                isInAir = false;
+                transform.parent = collision.transform;             //set position of egg wrt to the current platform            
             }
         }
     }

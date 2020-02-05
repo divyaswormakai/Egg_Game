@@ -6,15 +6,30 @@ public class GameManager : MonoBehaviour
 {
     private float moveSpeed = 2f;
     private int score = 0;
-    private float CompareLimit = 0.9f;
+    private float CompareLimit = 0.2f;
+
+    public bool isPaused = false;
 
     private void Start()
     {
         Application.targetFrameRate = 60;
     }
-    public void IncreaseSpeed()
+
+    private void Update()
     {
-        //increase speed
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            print("Pause");
+            isPaused = !isPaused;
+            if (isPaused)
+            {
+                FindObjectOfType<UI>().PauseScreen();
+            }
+            else
+            {
+                FindObjectOfType<UI>().UnPauseScreen();
+            }
+        }
     }
 
     public float GetSpeed()
@@ -32,8 +47,11 @@ public class GameManager : MonoBehaviour
         score += incAmt;
         if (score % 10 == 0)
         {
-            CompareLimit -= 0.5f;
-            Mathf.Clamp(CompareLimit, 0.5f, 0.9f);
+            CompareLimit += 0.5f;                   //Increase probabilty of moving platform
+            Mathf.Clamp(CompareLimit, 0.2f, 0.8f);
+
+            moveSpeed += 0.1f;
+            Mathf.Clamp(moveSpeed, 2f, 4f);
         }
     }
 

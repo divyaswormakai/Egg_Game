@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlatformSpawner : MonoBehaviour
+public class PlatformController : MonoBehaviour
 {
     public GameObject[] platforms;
     public GameObject cameraFollowObject;
@@ -16,7 +16,7 @@ public class PlatformSpawner : MonoBehaviour
         int toPlacePlatformIndex = (currPlat + 2) % 5;
         Vector3 toPlacePosition = platforms[currPlat].transform.position;
         toPlacePosition.y += 9;
-        toPlacePosition.x = Random.Range(0f, 1.7f);
+        toPlacePosition.x = Random.Range(-3f, 3f);
         platforms[toPlacePlatformIndex].transform.position = toPlacePosition;
         platforms[toPlacePlatformIndex].GetComponentInChildren<Platform>().SetStats();
 
@@ -43,7 +43,5 @@ public class PlatformSpawner : MonoBehaviour
         {
             platforms[currPlat].GetComponentInChildren<Platform>().toMove = true;
         }
-
     }
-
 }
