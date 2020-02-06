@@ -13,6 +13,7 @@ public class UI : MonoBehaviour
     GameManager gameManager;
 
 
+
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -20,7 +21,7 @@ public class UI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void SetScore()
@@ -58,4 +59,6 @@ public class UI : MonoBehaviour
         gameOverCanvas.gameObject.SetActive(true);
         FindObjectOfType<GameManager>().isPaused = false;
     }
+
+
 }

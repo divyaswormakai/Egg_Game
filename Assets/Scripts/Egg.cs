@@ -21,11 +21,11 @@ public class Egg : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isInAir)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.touchCount>0) && !isInAir)
         {
             GetComponent<Rigidbody2D>().AddForce(transform.up*force,ForceMode2D.Impulse);           //Jump
             isInAir = true;
-            GetComponent<AudioSource>().Play();
+            FindObjectOfType<AudioManager>().Play("Fly");
             jumpPosX = GetComponent<Rigidbody2D>().transform.position.x;                            //Get and set jump position in X axis at the time of jumping
         }
         if (isInAir)                                                                                //To make the egg stay in constant x-axis while jumping
@@ -42,6 +42,7 @@ public class Egg : MonoBehaviour
         {
             print("Die");
             FindObjectOfType<UI>().GameOverScreen();
+            FindObjectOfType<AudioManager>().Play("Die");
         }
         else
         {
@@ -52,6 +53,7 @@ public class Egg : MonoBehaviour
                     FindObjectOfType<PlatformController>().PlacePlatform(Int32.Parse(collision.collider.name));        //Spawn Platform to up
                     FindObjectOfType<GameManager>().IncScore(1);                                                    //Increase score
                     FindObjectOfType<UI>().SetScore();                                                              //Set score on UI ScoreBoard
+                    FindObjectOfType<AudioManager>().Play("Land");                                                  //Play landing sound
                 }
                 currPlatform = collision.collider.gameObject;
                 isInAir = false;
